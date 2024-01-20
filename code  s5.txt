@@ -1,0 +1,8 @@
+export const handler = async (event, context, callback) => {
+    var city_str = event.city_str,
+    response = {
+        city_str: city_str,
+        temp_int: 74
+        };
+        callback(null, response);
+};

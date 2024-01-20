@@ -1,0 +1,79 @@
+java prog - create jar file,package.class::method
+
+package com.mcnz.aws.lambda2024;
+public class AwsLambdaFunctions {
+	public String alterPayload(String payload) {
+	System.out.println("we are in the Java AWS Lambda function");
+	return payload.toLowerCase().replace('e','3').replace('l','1');
+}
+
+
+nodejs - prog
+export const handler = async function (event, context) {
+  console.log("Received event:", JSON.stringify(event));
+
+  if (
+    event.a === undefined ||
+    event.b === undefined ||
+    event.op === undefined
+  ) {
+    return "400 Invalid Input";
+  }
+
+  const res = {};
+  res.a = Number(event.a);
+  res.b = Number(event.b);
+  res.op = event.op;
+  if (isNaN(event.a) || isNaN(event.b)) {
+    return "400 Invalid Operand";
+  }
+  switch (event.op) {
+    case "+":
+    case "add":
+      res.c = res.a + res.b;
+      break;
+    case "-":
+    case "sub":
+      res.c = res.a - res.b;
+      break;
+    case "*":
+    case "mul":
+      res.c = res.a * res.b;
+      break;
+    case "/":
+    case "div":
+      if (res.b == 0) {
+        return "400 Divide by Zero";
+      } else {
+        res.c = res.a / res.b;
+      }
+      break;
+    default:
+      return "400 Invalid Operator";
+  }
+
+  return res;
+};
+
+python - prog1
+import json
+def lambda_handler(event, context):
+    print("this is my aws lambda function")
+    if event["planet"] == "earth":
+        return "moon"
+    elif event["planet"] == "sun":
+        return "this is not the planet"
+    else:
+        return "we do'nt recognize your argument"
+
+python - prog2
+import json
+import math
+
+def lambda_handler(event, context):
+    mathResult = math.pow(int(event['base']), int(event['exponent']))
+    return {
+        'statusCode': 200,
+        'body': json.dumps('Your result is ' + str(mathResult))
+        
+    }

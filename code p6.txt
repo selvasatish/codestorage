@@ -1,0 +1,22 @@
+import { S3Client, CopyObjectCommand } from "@aws-sdk/client-s3";
+
+const client = new S3Client({});
+
+export const handler = async (event, context, callback) => {
+  var sourceBucket = "sourcebucket10012024";
+  var destinationBucket = "destinationbucket10012024";
+  var objectKey = event.Records[0].s3.object.key;
+  var copySource = encodeURI(sourceBucket + "/" + objectKey);
+
+  const command = new CopyObjectCommand({
+  Bucket: destinationBucket, CopySource: copySource,Key: objectKey 
+  });
+
+  try {
+    const response = await client.send(command);
+    console.log(response);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
