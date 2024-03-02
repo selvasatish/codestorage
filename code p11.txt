@@ -1,0 +1,23 @@
+{
+  "Version": "2012-10-17",
+  "Id": "Policy1707545969925",
+  "Statement": [
+    {
+      "Sid": "myS3SNSTopic",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "s3.amazonaws.com"
+      },
+      "Action": "SNS:Publish",
+      "Resource": "arn:aws:sns:us-east-1:105680160229:myS3SNSTopic",
+      "Condition": {
+        "StringEquals": {
+          "aws:SourceAccount": "105680160229"
+        },
+        "ArnLike": {
+          "aws:SourceArn": "arn:aws:s3:::mybuckaws09022024"
+        }
+      }
+    }
+  ]
+}

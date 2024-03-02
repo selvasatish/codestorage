@@ -1,0 +1,24 @@
+#labesl creation
+
+import boto3
+
+BUCKET = "mytestbucket19012024"
+KEY = "jump1.jpg"
+#detect labels with output
+def detect_labels(bucket, key, max_labels=10, min_confidence=90, region="us-east-1"):
+	rekognition = boto3.client("rekognition", region)
+	response = rekognition.detect_labels(
+		Image={
+			"S3Object": {
+				"Bucket": bucket,
+				"Name": key,
+			}
+		},
+		MaxLabels=max_labels,
+		MinConfidence=min_confidence,
+	)
+	return response['Labels']
+
+def lambda_handler(event, context):
+    for label in detect_labels(BUCKET, KEY):
+        print("{Name} - {Confidence}%".format(**label))

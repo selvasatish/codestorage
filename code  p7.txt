@@ -1,0 +1,14 @@
+import json
+import boto3
+s3 = boto3.client('s3')
+def lambda_handler(event, context):
+    bucket = 'bucket31012024mor'
+    transactionToUpload = {}
+    transactionToUpload [ 'StudentName'] = 'your roll number here'
+    transactionToUpload [ 'CourseName'] = 'cloudserverlesscomputing'
+    transactionToUpload ['practicalname'] = 'create a file with details which you have provide here'
+    transactionToUpload ['Branch'] = 'CSE-CLOUDEDGECOMPUTING'
+    fileName = 's3objectnew' + '.json'
+    uploadByteStream = bytes(json.dumps(transactionToUpload).encode('UTF-8'))
+    s3.put_object(Bucket=bucket, Key=fileName, Body=uploadByteStream)
+    print('Put Complete')

@@ -1,0 +1,11 @@
+#labesl creation
+import json
+import boto3
+#detect labels
+def lambda_handler(event, context):
+    client = boto3.client("rekognition")
+    s3 = boto3.client("s3")
+    fileObj = s3.get_object(Bucket = "mytestbucket19012024", Key="jump1.jpg")
+    file_content = fileObj["Body"].read()
+    response = client.detect_labels(Image={"S3Object": {"Bucket":"mytestbucket19012024","Name":"jump1.jpg"}}, MaxLabels=3, MinConfidence=50)
+    print(response)

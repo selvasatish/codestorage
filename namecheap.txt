@@ -1,0 +1,10 @@
+1.buy one domain name
+2.create a hosting zone in route 53
+3.update the name servers in domain page.
+(takes upto 48hrs)
+4.create ssl in certificate manager service in aws.
+5. add certificate in route 53.
+6.keep your webpages in s3 bucket
+7.create one cloudfront for the s3 bucket (with certificate)
+8. create record for cloudfront in route 53
+9.test your website.

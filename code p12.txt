@@ -1,0 +1,9 @@
+CREATE DATABASE mydatabase
+
+CREATE EXTERNAL TABLE IF NOT EXISTS table2(
+  SNO INT, Name string, Age INT,City string)
+LOCATION 's3://mybuckaws09022024/'
+
+INSERT INTO table2 VALUES (1,'Lansing',57 ,'vijaywada')
+
+SELECT * FROM table2

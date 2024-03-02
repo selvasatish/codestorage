@@ -1,0 +1,30 @@
+#face detect
+
+import boto3
+
+BUCKET = "mytestbucket19012024"
+KEY = "students1.jpg"
+FEATURES_BLACKLIST = ("Landmarks", "Emotions", "Pose", "Quality", "BoundingBox", "Confidence")
+#detect faces with emotions
+def detect_faces(bucket, key, attributes=['ALL'], region="us-east-1"):
+	rekognition = boto3.client("rekognition", region)
+	response = rekognition.detect_faces(
+	    Image={
+			"S3Object": {
+				"Bucket": bucket,
+				"Name": key,
+			}
+		},
+	    Attributes=attributes,
+	)
+	return response['FaceDetails']
+
+def lambda_handler(event, context):
+    for face in detect_faces(BUCKET, KEY):
+        print("Face ({Confidence}%)".format(**face))
+        # emotions
+        for emotion in face['Emotions']:
+            print("  {Type} : {Confidence}%".format(**emotion))
+            # quality
+        for quality, value in face['Quality'].items():
+    	    print("  {quality} : {value}".format(quality=quality, value=value))
